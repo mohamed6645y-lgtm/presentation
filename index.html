@@ -1,826 +1,601 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark"> <!-- data-theme attribute for theme management -->
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehicle Valuation - Project Presentation</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js for data visualization -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;600&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mohamed Mahmoud — Data Analyst & Full-Stack Developer with 3 years of experience. Transforming raw data into actionable insights and building scalable modern web applications.">
+  <meta name="keywords" content="Mohamed Mahmoud, Data Analyst, Full-Stack Developer, Portfolio, Python, SQL, Power BI, JavaScript">
+  <meta name="author" content="Mohamed Mahmoud">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1F150C">
 
-        :root {
-            --bg-color: #050508;
-            --surface: #12121a;
-            --accent-primary: #00f2ff;
-            --accent-secondary: #7000ff;
-            --text-main: #ffffff;
-            --text-muted: #a0a0b5;
-            --shadow-color: rgba(0, 242, 255, 0.1);
-            --card-border-color: rgba(0, 242, 255, 0.1);
-        }
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mohamed Mahmoud | Data Analyst & Full-Stack Developer">
+  <meta property="og:description" content="Data Analyst & Full-Stack Developer passionate about transforming raw data into actionable insights and building scalable modern web applications.">
+  <meta property="og:locale" content="en_US">
 
-        /* Light Theme Color Palette */
-        html[data-theme='light'] {
-            --bg-color: #f4f4f9;
-            --surface: #ffffff;
-            --accent-primary: #007aff;
-            --accent-secondary: #5856d6;
-            --text-main: #1d1d1f;
-            --text-muted: #6e6e73;
-            --shadow-color: rgba(0, 122, 255, 0.1);
-            --card-border-color: rgba(0, 0, 0, 0.1);
-        }
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mohamed Mahmoud | Portfolio">
+  <meta name="twitter:description" content="Data Analyst & Full-Stack Developer — transforming data into insights and building modern web applications.">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <title>Mohamed Mahmoud | Data Analyst & Full-Stack Developer</title>
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
-            /* Smooth transition for theme changes */
-            transition: background-color 0.4s ease, color 0.4s ease;
-            background-image: 
-                radial-gradient(circle at 15% 50%, var(--accent-secondary), transparent 35%),
-                radial-gradient(circle at 85% 30%, var(--accent-primary), transparent 35%);
-            background-blend-mode: multiply;
-        }
-        /* Presentation Container */
-        #presentation-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
-        /* Slides */
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 4rem 10%;
-            text-align: center;
-        }
-
-        .slide.active {
-            opacity: 1;
-            transform: scale(1);
-            z-index: 10;
-        }
-        
-        .slide-content {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            gap: 40px;
-        }
-        .slide-content .text-content {
-            flex-basis: 60%;
-            text-align: left;
-        }
-        .slide-content .chart-content {
-            flex-basis: 40%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-
-        /* Typography */
-        h1, h2 {
-            font-family: 'Rajdhani', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .slide h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
-        }
-
-        .slide h2 {
-            font-size: 2.5rem;
-            color: var(--accent-primary);
-            margin-bottom: 2rem;
-            border-bottom: 2px solid var(--card-border-color);
-            padding-bottom: 10px;
-            width: 100%;
-        }
-
-        .slide p {
-            font-size: 1.3rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-            max-width: 900px;
-            margin-bottom: 1.5rem;
-        }
-
-        .highlight {
-            color: var(--text-main);
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Lists & Cards */
-        .team-grid, .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 2rem;
-        }
-
-        .card {
-            background: rgba(18, 18, 26, 0.6);
-            border: 1px solid var(--card-border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            text-align: left;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.1);
-        }
-
-        .card h3 {
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card p {
-            font-size: 1rem;
-            margin-bottom: 0;
-        }
-
-        ul.styled-list {
-            list-style: none;
-            text-align: left;
-            max-width: 800px;
-            width: 100%;
-        }
-
-        ul.styled-list li {
-            font-size: 1.3rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            padding-left: 2rem;
-            position: relative;
-        }
-
-        ul.styled-list li::before {
-            content: '▹';
-            color: var(--accent-primary);
-            position: absolute;
-            left: 0;
-            font-size: 1.5rem;
-            line-height: 1;
-        }
-
-        /* Image styling for slides */
-        /* 
-         * Improved image styling for responsiveness and visual consistency.
-         * - `max-width: 100%` ensures the image never overflows its container.
-         * - `max-height` is set to prevent the image from taking up too much vertical space on large screens,
-         *   maintaining a good balance with the text.
-         * - `object-fit: contain` ensures the entire image is visible without being stretched or squashed, preserving its aspect ratio.
-         * - `transition` is added for smooth hover effects.
-        */
-        .slide-image {
-            max-width: 100%; /* Prevent overflow on smaller viewports */
-            max-height: 50vh; /* Limit height to maintain balance with text */
-            height: auto;
-            margin-top: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-            object-fit: contain; /* Maintain aspect ratio without distortion */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover transition */
-        }
-        .slide-image:hover {
-            transform: scale(1.03); /* Subtle scale effect on hover */
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Media query for smaller screens (tablets and mobile) */
-        @media (max-width: 768px) {
-            .slide-image {
-                max-height: 40vh; /* Reduce max-height on smaller screens to give more room for text */
-            }
-            .slide-content .image-wrapper {
-                flex-direction: column; /* Stack images vertically on small screens */
-            }
-            .slide-content .image-wrapper .slide-image {
-                max-width: 80%; /* Images take more width when stacked */
-                margin-top: 1rem; /* Add some vertical space when stacked */
-            }
-        }
-
-        .slide-content .image-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px; /* Space between images */
-            margin-top: 2rem;
-            width: 100%; /* Take full width of parent slide-content */
-        }
-
-        .slide-content .image-wrapper .slide-image {
-            max-width: 45%; /* Each image takes up less than half to allow gap */
-            max-height: 40vh; /* Adjust as needed */
-            height: auto;
-            object-fit: contain;
-            margin-top: 0; /* Remove individual margin-top as wrapper handles it */
-        }
-
-        /* Navigation & Progress */
-        .controls {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 100;
-        }
-
-        .btn {
-            background: transparent;
-            color: var(--accent-primary);
-            border: 1px solid var(--accent-primary);
-            padding: 10px 30px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-        }
-
-        .btn:hover {
-            background: var(--accent-primary) !important;
-            color: var(--bg-color);
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
-        }
-
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            width: 0%;
-            transition: width 0.4s ease;
-            z-index: 100;
-        }
-
-        .slide-counter {
-            position: fixed;
-            bottom: 30px;
-            right: 40px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            z-index: 100;
-        }
-
-        /* Theme Toggle Switch */
-        .theme-switch-wrapper {
-            position: fixed;
-            top: 30px;
-            right: 40px;
-            display: flex;
-            align-items: center;
-            z-index: 101;
-        }
-        .theme-switch {
-            display: inline-block;
-            height: 24px;
-            position: relative;
-            width: 48px;
-        }
-        .theme-switch input {
-            display: none;
-        }
-        .slider {
-            background-color: var(--surface);
-            border: 1px solid var(--card-border-color);
-            bottom: 0;
-            cursor: pointer;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            transition: .4s;
-            border-radius: 24px;
-        }
-        .slider:before {
-            background-color: var(--accent-primary);
-            bottom: 3px;
-            content: "";
-            height: 16px;
-            left: 4px;
-            position: absolute;
-            transition: .4s;
-            width: 16px;
-            border-radius: 50%;
-        }
-        input:checked + .slider {
-            background-color: var(--surface);
-        }
-        input:checked + .slider:before {
-            transform: translateX(24px);
-        }
-
-        /* Animations */
-        .animated {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transition-delay: var(--delay, 0s);
-        }
-
-        .slide.active .animated {
-            opacity: 1;
-            transform: translateY(0);
-        }        
-        .slide.active .stagger {
-            transition-delay: calc(var(--stagger-index) * 150ms + 400ms);
-        }
-    </style>
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mohamed Mahmoud",
+    "jobTitle": "Data Analyst & Full-Stack Developer",
+    "email": "mohamed6645y@gmail.com",
+    "url": "",
+    "sameAs": [
+      "https://github.com/mohamed6645y-lgtm",
+      "https://www.facebook.com/share/1aGJRixNpq/"
+    ],
+    "knowsAbout": ["Data Analysis", "Python", "SQL", "Power BI", "JavaScript", "Full-Stack Development"]
+  }
+  </script>
 </head>
 <body>
 
-    <!-- Theme Switcher -->
-    <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="theme-toggle">
-            <input type="checkbox" id="theme-toggle" />
-            <span class="slider"></span>
-        </label>
+  <!-- Skip Navigation (Accessibility) -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Particle Background Canvas -->
+  <canvas id="particles-canvas" class="particles-canvas" aria-hidden="true"></canvas>
+
+  <!-- Loading Screen -->
+  <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading portfolio">
+    <div class="loader-inner">
+      <div class="loader-ring">
+        <div class="loader-ring-inner"></div>
+      </div>
+      <p class="loader-text">Mohamed Mahmoud</p>
+      <div class="loader-bar"><span class="loader-bar-fill"></span></div>
     </div>
+  </div>
 
-    <div class="progress-bar" id="progress"></div>
-    <div class="slide-counter" id="counter">1 / 18</div>
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress" class="scroll-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Page scroll progress"></div>
 
-    <div id="presentation-container">
-        
-        <div class="slide active">
-            <h1 class="animated">Vehicle Valuation</h1>
-            <p class="animated" style="font-size: 1.8rem; color: var(--text-main); --delay: 200ms;">Data-Driven Analysis & Machine Learning Platform</p>
-            <div class="animated" style="margin-top: 3rem; text-align: center; --delay: 400ms;">
-                <p>Supervised By:</p>
-                <h3 style="font-size: 1.5rem; color: var(--accent-primary);">Dr. Shereen Zaki</h3>
-                <h3 style="font-size: 1.5rem; color: var(--accent-secondary);">Eng. Toka Mostafa</h3>
+  <!-- Scroll Percentage Indicator -->
+  <div id="scroll-percent" class="scroll-percent" aria-hidden="true">
+    <svg viewBox="0 0 36 36" class="scroll-percent-ring">
+      <circle class="scroll-percent-bg" cx="18" cy="18" r="15.5" fill="none" stroke-width="2"/>
+      <circle class="scroll-percent-fill" cx="18" cy="18" r="15.5" fill="none" stroke-width="2" stroke-dasharray="97.4" stroke-dashoffset="97.4"/>
+    </svg>
+    <span class="scroll-percent-text">0%</span>
+  </div>
+
+  <!-- Navigation -->
+  <header class="header" id="header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="#home" class="nav-logo" aria-label="Mohamed Mahmoud — Home">
+        MM<span class="logo-dot">.</span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home" class="nav-link active"><span class="nav-link-text">Home</span></a></li>
+        <li><a href="#biography" class="nav-link"><span class="nav-link-text">Biography</span></a></li>
+        <li><a href="#about" class="nav-link"><span class="nav-link-text">About</span></a></li>
+        <li><a href="#education" class="nav-link"><span class="nav-link-text">Education</span></a></li>
+        <li><a href="#experience" class="nav-link"><span class="nav-link-text">Experience</span></a></li>
+        <li><a href="#skills" class="nav-link"><span class="nav-link-text">Skills</span></a></li>
+        <li><a href="#projects" class="nav-link"><span class="nav-link-text">Projects</span></a></li>
+        <li><a href="#feedback" class="nav-link"><span class="nav-link-text">Testimonials</span></a></li>
+        <li><a href="#contact" class="nav-link"><span class="nav-link-text">Contact</span></a></li>
+      </ul>
+
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- SECTION 1 — HOME -->
+    <section id="home" class="section hero" aria-label="Home">
+      <div class="hero-bg">
+        <div class="hero-gradient-orb hero-gradient-orb--1"></div>
+        <div class="hero-gradient-orb hero-gradient-orb--2"></div>
+        <div class="hero-gradient-orb hero-gradient-orb--3"></div>
+      </div>
+
+      <!-- Floating Shapes -->
+      <div class="floating-shapes" aria-hidden="true">
+        <div class="shape shape--1"></div>
+        <div class="shape shape--2"></div>
+        <div class="shape shape--3"></div>
+        <div class="shape shape--4"></div>
+        <div class="shape shape--5"></div>
+      </div>
+
+      <div class="container hero-grid">
+        <div class="hero-content reveal fade-up">
+          <p class="hero-greeting">Hello, I'm</p>
+          <h1 class="hero-name">Mohamed Mahmoud</h1>
+          <p class="hero-bio">
+            Data Analyst &amp; Full-Stack Developer passionate about transforming raw data into actionable insights and building scalable modern web applications.
+          </p>
+          <ul class="hero-highlights">
+            <li>Transforming complex datasets into clear, executive-ready insights.</li>
+            <li>Designing dashboards and reports that drive smarter business decisions.</li>
+            <li>Applying statistical analysis and visualization to uncover hidden patterns.</li>
+          </ul>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary magnetic-btn">
+              <span class="btn-shine"></span>
+              <span>View Projects</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#contact" class="btn btn-outline magnetic-btn">
+              <span class="btn-shine"></span>
+              <span>Hire Me</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="hero-image-wrap reveal fade-left">
+          <div class="hero-image-frame glass tilt-card" data-tilt>
+            <img src="images/mohamed.jpeg" alt="Profile Image" loading="lazy" decoding="async" width="380" height="507">
+            <div class="hero-image-glow"></div>
+            <div class="hero-image-border"></div>
+          </div>
+        </div>
+      </div>
+      <a href="#biography" class="scroll-indicator" aria-label="Scroll down">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- SECTION 2 — BIOGRAPHY -->
+    <section id="biography" class="section biography" aria-label="Biography">
+      <div class="section-bg-accent" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section-header reveal fade-up">
+          <div class="section-title-wrap">
+            <span class="section-line" aria-hidden="true"></span>
+            <h2 class="section-title">Biography</h2>
+            <span class="section-line" aria-hidden="true"></span>
+          </div>
+        </header>
+        <div class="biography-grid">
+          <div class="biography-text reveal fade-right">
+            <p>My journey began with a deep curiosity about how numbers tell stories — long before I knew the term "data analyst," I was already fascinated by patterns hidden in everyday information.</p>
+            <p>Growing up in Egypt, I pursued Computer and Information Sciences at Zagazig University, where I discovered the intersection of logic, creativity, and technology that would define my career.</p>
+            <p>During my studies, I fell in love with programming and data visualization, realizing that the most powerful solutions emerge when analytical rigor meets elegant design.</p>
+            <p>After graduation, I immersed myself in real-world projects — from building predictive models to crafting full-stack web applications — each experience sharpening both my technical toolkit and my problem-solving mindset.</p>
+            <p>Today, I operate at the crossroads of data science and software development, helping organizations make informed decisions while delivering seamless digital experiences.</p>
+            <p>Every dataset I touch and every application I build reflects a single belief: technology should empower people, simplify complexity, and create lasting value.</p>
+          </div>
+          <div class="biography-image reveal fade-left">
+            <div class="image-placeholder glass tilt-card" data-tilt>
+              <img src="images/WhatsApp Image 2026-07-07 at 11.50.41 AM.jpeg" alt="Biography Image" loading="lazy" decoding="async" width="480" height="600">
             </div>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="slide">
-            <h2 class="animated">The Visionaries Behind the Project</h2>
-            <div class="team-grid">
-                <div class="card animated stagger" style="--stagger-index: 0;">
-                    <h3>Mohamed Mahmoud Metwally</h3>
-                    <p style="color: var(--accent-primary)">Machine Learning & Data Analysis</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 1;">
-                    <h3>Ayman Ehab</h3>
-                    <p style="color: var(--accent-primary)">Data Science & Machine Learning</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 2;">
-                    <h3>Mohamed Abdel Rahman</h3>
-                    <p style="color: var(--accent-primary)">Backend & API Integration</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 3;">
-                    <h3>Youssef Khaled Abdallah</h3>
-                    <p style="color: var(--accent-primary)">Backend & API Integration</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 4;">
-                    <h3>Salah Elsayed Abdalazim</h3>
-                    <p style="color: var(--accent-primary)">UI/UX Desigener</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 5;">
-                    <h3>Mohamed El-Sayed</h3>
-                    <p style="color: var(--accent-primary)">System Architecture & Frontend Development</p>
-                </div>
+    <!-- SECTION 3 — ABOUT ME -->
+    <section id="about" class="section about" aria-label="About Me">
+      <div class="container">
+        <header class="section-header reveal fade-up">
+          <div class="section-title-wrap">
+            <span class="section-line" aria-hidden="true"></span>
+            <h2 class="section-title">About Me</h2>
+            <span class="section-line" aria-hidden="true"></span>
+          </div>
+        </header>
+        <div class="about-content glass reveal fade-up">
+          <p>I'm Mohamed Mahmoud, a Data Analyst and Full-Stack Developer with 3 years of experience transforming raw data into actionable insights and building robust, end-to-end web applications.</p>
+          <p>My professional journey is rooted in a passion for uncovering meaning within complexity. Whether I'm cleaning messy datasets, designing interactive dashboards, or architecting responsive web interfaces, I approach every challenge with precision, creativity, and a relentless focus on results.</p>
+          <p>I have delivered 8+ real-world projects that bridge the gap between data-driven decision-making and seamless user experiences, leveraging tools like Python, SQL, Power BI, and modern JavaScript frameworks.</p>
+          <p>As a data analyst, I specialize in statistical modeling, exploratory data analysis, and business intelligence reporting. I transform fragmented information into cohesive narratives that stakeholders can trust and act upon — turning ambiguity into clarity and intuition into evidence.</p>
+          <p>As a full-stack developer, I bring those same analytical principles to software engineering. I design clean architectures, write maintainable code, and craft interfaces that feel intuitive from the first click. My applications don't just function — they communicate, engage, and scale.</p>
+          <p>When I'm not immersed in code or datasets, I'm continuously learning — exploring emerging technologies, refining my craft, and seeking opportunities to collaborate on projects that make a genuine impact. I believe the best work happens at the intersection of data, design, and human-centered thinking.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4 — EDUCATION -->
+    <section id="education" class="section education" aria-label="Education">
+      <div class="section-bg-accent section-bg-accent--alt" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section-header reveal fade-up">
+          <div class="section-title-wrap">
+            <span class="section-line" aria-hidden="true"></span>
+            <h2 class="section-title">Education</h2>
+            <span class="section-line" aria-hidden="true"></span>
+          </div>
+        </header>
+        <div class="timeline">
+          <div class="timeline-item reveal fade-up">
+            <div class="timeline-marker">
+              <svg class="university-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/>
+                <line x1="12" y1="22" x2="12" y2="10"/>
+              </svg>
             </div>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">The Core Problem</h2>
-            <div class="slide-content">
-                <div class="text-content animated" style="--delay: 200ms; flex-basis: 50%; text-align: left;">
-                    <p>The used car market is notoriously opaque. Buyers and sellers constantly struggle with <span class="highlight">information asymmetry</span>.</p>
-                    <ul class="styled-list" style="max-width: 100%;">
-                        <li class="animated stagger" style="--stagger-index: 0;">Pricing heavily relies on subjective human judgment rather than actual market data.</li>
-                        <li class="animated stagger" style="--stagger-index: 1;">High risk of fraud, overpricing for buyers, and under-selling for owners.</li>
-                        <li class="animated stagger" style="--stagger-index: 2;">Market dynamics fluctuate rapidly, rendering traditional static pricing guides obsolete.</li>
-                        <li class="animated stagger" style="--stagger-index: 3;">Lack of a centralized, reliable metric to evaluate a vehicle's true condition and value.</li>
-                    </ul>
+            <div class="timeline-card glass">
+              <h3 class="timeline-title">Zagazig University</h3>
+              <p class="timeline-subtitle">Faculty of Computer and Information</p>
+              <span class="timeline-badge">Bachelor Degree</span>
+              <div class="timeline-details">
+                <div class="detail-item">
+                  <span class="detail-label">GPA</span>
+                  <span class="detail-value">3.1</span>
                 </div>
-                <div class="image-wrapper animated" style="--delay: 400ms; flex-basis: 50%; display: flex; justify-content: center; align-items: center;">
-                    <img src="images/image 2.png" class="slide-image" alt="Problem Car" style="max-width: 90%; max-height: 60vh;">
+                <div class="detail-item">
+                  <span class="detail-label">Graduation Status</span>
+                  <span class="detail-value">Graduate</span>
                 </div>
+                <div class="detail-item">
+                  <span class="detail-label">Grade</span>
+                  <span class="detail-value">Very Good</span>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="slide" id="s5">
-    <h1>Project Roadmap</h1>
-    <!-- Added .slide-image and .animated classes for styling and animation -->
-    <img src="images/image 3.png" class="slide-image animated" style="--delay: 200ms;" alt="Project Roadmap">
+      </div>
+    </section>
 
-    <p>A structured approach to ensure development milestones and project goals are met efficiently.</p>
-</div>
-
-        <div class="slide">
-            <h2 class="animated">Before Our Solution</h2>
-            <p class="animated" style="--delay: 200ms;">How did people navigate this problem previously?</p>
-            <div class="features-grid">
-                <div class="card animated stagger" style="--stagger-index: 0;">
-                    <h3>Gut Feeling</h3>
-                    <p>Relying purely on the biased opinions of mechanics or dealership agents.</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 1;">
-                    <h3>Manual Comparison</h3>
-                    <p>Spending hours scrolling through classifieds to guess an average price.</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 2;">
-                    <h3>Static Guides</h3>
-                    <p>Using outdated printed catalogs that do not account for daily economic shifts.</p>
-                </div>
+    <!-- SECTION 5 — EXPERIENCE -->
+    <section id="experience" class="section experience" aria-label="Experience">
+      <div class="container">
+        <header class="section-header reveal fade-up">
+          <div class="section-title-wrap">
+            <span class="section-line" aria-hidden="true"></span>
+            <h2 class="section-title">Experience</h2>
+            <span class="section-line" aria-hidden="true"></span>
+          </div>
+        </header>
+        <div class="timeline experience-timeline" id="experience-timeline">
+          <div class="timeline-line" aria-hidden="true"><span class="timeline-line-fill"></span></div>
+          <div class="timeline-item reveal fade-up">
+            <div class="timeline-marker"><span class="marker-dot"></span></div>
+            <div class="timeline-card glass">
+              <span class="timeline-period">Professional Role</span>
+              <h3 class="timeline-title">Data Analyst</h3>
+              <p>As a Data Analyst, I specialize in extracting meaningful insights from complex datasets to support strategic business decisions. I design and maintain interactive dashboards in Power BI, perform statistical analysis using Python and SQL, and deliver comprehensive reports that translate raw numbers into clear, actionable recommendations for stakeholders across departments.</p>
             </div>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">Our Project Idea</h2>
-            <p class="animated" style="--delay: 200ms;">We built a comprehensive, end-to-end platform that leverages <span class="highlight">Artificial Intelligence and Big Data</span> to estimate the real market value of used cars.</p>
-            <p class="animated" style="--delay: 400ms;">By entering basic vehicle details, users receive an accurate, real-time price estimate backed by millions of data points, bridging the gap between uncertainty and confidence in the automotive market.</p>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">What We Aim to Achieve</h2>
-            <ul class="styled-list">
-                <li class="animated stagger" style="--stagger-index: 0;"><span class="highlight">Transparency:</span> Democratize automotive data for the general public.</li>
-                <li class="animated stagger" style="--stagger-index: 1;"><span class="highlight">Accuracy:</span> Utilize advanced Machine Learning algorithms to minimize pricing errors.</li>
-                <li class="animated stagger" style="--stagger-index: 2;"><span class="highlight">Automation:</span> Replace manual market research with an instantaneous, automated pipeline.</li>
-                <li class="animated stagger" style="--stagger-index: 3;"><span class="highlight">Scalability:</span> Build a dynamic system capable of adapting to new car models and changing market conditions.</li>
-            </ul>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">Why It Matters & Who It's For</h2>
-            <p class="animated" style="--delay: 200ms;">This platform isn't just a calculator; it's a financial safeguard. It empowers decision-making across multiple sectors.</p>
-            <div class="features-grid">
-                <div class="card animated stagger" style="--stagger-index: 0;">
-                    <h3 style="color: var(--accent-secondary)">Everyday Buyers & Sellers</h3>
-                    <p>Ensuring fair trade without falling victim to market manipulation.</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 1;">
-                    <h3 style="color: var(--accent-secondary)">Car Dealerships</h3>
-                    <p>Optimizing inventory acquisition pricing and maximizing profit margins safely.</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 2;">
-                    <h3 style="color: var(--accent-secondary)">Banks & Insurances</h3>
-                    <p>Providing accurate asset valuation for auto loans and insurance policies.</p>
-                </div>
+          </div>
+          <div class="timeline-item reveal fade-up">
+            <div class="timeline-marker"><span class="marker-dot"></span></div>
+            <div class="timeline-card glass">
+              <span class="timeline-period">Professional Role</span>
+              <h3 class="timeline-title">Full Stack Developer</h3>
+              <p>As a Full Stack Developer, I architect and build end-to-end web applications with a focus on performance, scalability, and user experience. From crafting responsive front-end interfaces with HTML, CSS, and JavaScript to developing robust back-end logic with Python, I deliver complete solutions that seamlessly integrate data pipelines, APIs, and modern design principles.</p>
             </div>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">System Architecture</h2>
-            <p class="animated" style="--delay: 200ms;">A robust pipeline seamlessly connecting raw data to the end-user.</p>
-            <ul class="styled-list">
-                <li class="animated stagger" style="--stagger-index: 0;"><span class="highlight">Data Layer:</span> Web Scrapers pulling live data into PostgreSQL databases.</li>
-                <li class="animated stagger" style="--stagger-index: 1;"><span class="highlight">Processing Layer:</span> Automated Pandas pipelines for immediate cleaning and transformation.</li>
-                <li class="animated stagger" style="--stagger-index: 2;"><span class="highlight">Intelligence Layer:</span> Trained ML models generating predictive inferences.</li>
-                <li class="animated stagger" style="--stagger-index: 3;"><span class="highlight">Application Layer:</span> A scalable backend API serving a highly responsive, user-friendly frontend interface.</li>
-            </ul>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">Phase 1: Data Acquisition (Scraping)</h2>
-            <p class="animated" style="--delay: 200ms;">Data is the fuel of our platform. We designed custom scrapers targeting major automotive marketplaces.</p>
-            <ul class="styled-list">
-                <li class="animated stagger" style="--stagger-index: 0;">Bypassing standard pagination and extracting structured JSON/HTML data.</li>
-                <li class="animated stagger" style="--stagger-index: 1;">Collecting extensive metadata: Make, Model, Year, Mileage, Engine Capacity, Transmission, and historical Price points.</li>
-                <li class="animated stagger" style="--stagger-index: 2;">Ensuring continuous data flow to keep our dataset reflecting current market realities.</li>
-            </ul>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">Phase 2: Data Cleaning</h2>
-            <p class="animated" style="--delay: 200ms;">Raw data is noisy. We implemented rigorous automated cleaning protocols to ensure model accuracy.</p>
-            <ul class="styled-list">
-                <li class="animated stagger" style="--stagger-index: 0;">Handling Missing Values through median imputation and context-aware filling.</li>
-                <li class="animated stagger" style="--stagger-index: 1;">Removing extreme outliers that skew the market average.</li>
-                <li class="animated stagger" style="--stagger-index: 2;"><span class="highlight">Crucial Step:</span> Stripping non-predictive tracking columns (e.g., dropping strictly relational 'id' features) to prevent the machine learning models from fitting to noise rather than actual vehicle attributes.</li>
-            </ul>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">Phase 3: Feature Engineering</h2>
-            <p class="animated" style="--delay: 200ms;">Transforming raw variables into powerful predictive signals.</p>
-            <div class="features-grid">
-                <div class="card animated stagger" style="--stagger-index: 0;">
-                    <h3>Vehicle Age</h3>
-                    <p>Calculating dynamic age (Current Year - Manufacture Year) instead of relying solely on the model year.</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 1;">
-                    <h3>Mileage Ratios</h3>
-                    <p>Generating Mileage-per-Year metrics to identify heavily used vs. garage-kept vehicles.</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 2;">
-                    <h3>Categorical Encoding</h3>
-                    <p>Applying advanced encoding techniques (like Target Encoding) for High-Cardinality features like Car Brands.</p>
-                </div>
+          </div>
+          <div class="timeline-item reveal fade-up">
+            <div class="timeline-marker"><span class="marker-dot"></span></div>
+            <div class="timeline-card glass">
+              <span class="timeline-period">Independent</span>
+              <h3 class="timeline-title">Freelancer</h3>
+              <p>As a Freelancer, I collaborate with clients worldwide to deliver tailored data analytics and web development solutions. I manage projects from initial consultation through deployment, ensuring transparent communication, on-time delivery, and exceptional quality — whether building predictive ML models, custom dashboards, or full-stack applications that solve real business challenges.</p>
             </div>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="slide">
-            <h2 class="animated">Phase 4: Machine Learning</h2>
-            <p class="animated" style="--delay: 200ms;">We experimented with multiple state-of-the-art algorithms to find the perfect balance of speed and precision.</p>
-            <ul class="styled-list">
-                <li class="animated stagger" style="--stagger-index: 0;"><span class="highlight">Random Forest:</span> Excellent for capturing non-linear relationships and handling diverse feature types without extensive scaling.</li>
-                <li class="animated stagger" style="--stagger-index: 1;"><span class="highlight">CatBoost & XGBoost:</span> Deployed for their superior handling of categorical variables (Brand, Transmission) and high performance in structured tabular data.</li>
-            </ul>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">Model Evaluation & Performance</h2>
-            <div class="slide-content">
-                <div class="text-content animated" style="--delay: 200ms;">
-                    <p>We don't just guess; we prove our accuracy mathematically.</p>
-                    <ul class="styled-list">
-                        <li class="animated stagger" style="--stagger-index: 0;">Achieved a robust accuracy metric of <span class="highlight">91.7%</span> on unseen testing data.</li>
-                        <li class="animated stagger" style="--stagger-index: 1;">Minimized Mean Absolute Error (MAE) and RMSE to ensure negligible financial deviations.</li>
-                        <li class="animated stagger" style="--stagger-index: 2;">Implemented cross-validation to prevent overfitting and ensure generalization.</li>
-                    </ul>
-                </div>
-                <div class="chart-content animated" style="--delay: 400ms;">
-                    <canvas id="accuracyChart" width="300" height="300"></canvas>
-                </div>
+    <!-- SECTION 6 — SKILLS -->
+    <section id="skills" class="section skills" aria-label="Skills">
+      <div class="section-bg-accent" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section-header reveal fade-up">
+          <div class="section-title-wrap">
+            <span class="section-line" aria-hidden="true"></span>
+            <h2 class="section-title">Skills</h2>
+            <span class="section-line" aria-hidden="true"></span>
+          </div>
+        </header>
+        <div class="skills-grid">
+          <div class="skill-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="skill-card-glow"></div>
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16v18H4V3zm2 2v14h12V5H6zm2 2h8v2H8V7zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
             </div>
-        </div>
-
-        <div class="slide" id="s14">
-            <h1>System Operation: Live Monitoring</h1>
-            <!-- Added .slide-image and .animated classes for styling and animation -->
-            <img src="images/5ac4c3d3-db57-44a0-ae42-8e85d4a9ca4e.png" class="slide-image animated" style="--delay: 200ms;" alt="Admin Dashboard">
-
-            <p>Real-time analytics dashboard monitoring data pipeline health and model performance.</p>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">The Frontend User Experience</h2>
-            <p class="animated" style="--delay: 200ms;">Translating complex data science into a simple, elegant interface.</p>
-            <ul class="styled-list">
-                <li class="animated stagger" style="--stagger-index: 0;">Clean, responsive design allowing users to input car specs in seconds.</li>
-                <li class="animated stagger" style="--stagger-index: 1;">Instant price estimation output complete with a "Confidence Score".</li>
-                <li class="animated stagger" style="--stagger-index: 2;">Advanced filtering capabilities using interactive sliders.</li>
-                <li class="animated stagger" style="--stagger-index: 3;">Visual analytics displaying market distributions.</li>
-            </ul>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">The Final Impact</h2>
-             <div class="slide-content">
-                <div class="text-content animated" style="--delay: 200ms;">
-                    <p>What did we solve?</p>
-                    <ul class="styled-list">
-                        <li class="animated stagger" style="--stagger-index: 0;"><span class="highlight">Time Efficiency:</span> Reduced valuation time from hours of research to under 2 seconds.</li>
-                        <li class="animated stagger" style="--stagger-index: 1;"><span class="highlight">Financial Protection:</span> Safeguarded consumers from market exploitation.</li>
-                        <li class="animated stagger" style="--stagger-index: 2;"><span class="highlight">Standardization:</span> Created a reliable benchmark for the local automotive market.</li>
-                    </ul>
-                </div>
-                <div class="chart-content animated" style="--delay: 400ms;">
-                    <canvas id="impactChart" width="400" height="300"></canvas>
-                </div>
+            <h3>Excel</h3>
+          </div>
+          <div class="skill-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="skill-card-glow"></div>
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 13h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
             </div>
-        </div>
-
-        <div class="slide">
-            <h2 class="animated">Future Work & Expansion</h2>
-            <div class="features-grid">
-                <div class="card animated stagger" style="--stagger-index: 0;">
-                    <h3>Mobile Application</h3>
-                    <p>Porting the platform to iOS and Android for on-the-go dealership negotiations.</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 1;">
-                    <h3>Third-Party API</h3>
-                    <p>Offering our predictive engine as a REST API for insurance companies to integrate.</p>
-                </div>
-                <div class="card animated stagger" style="--stagger-index: 2;">
-                    <h3>Image Recognition</h3>
-                    <p>Integrating AI computer vision to assess car condition from user-uploaded photos.</p>
-                </div>
+            <h3>Python</h3>
+          </div>
+          <div class="skill-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="skill-card-glow"></div>
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16v2H4V4zm0 4h10v2H4V8zm0 4h16v2H4v-2zm0 4h10v2H4v-2z"/></svg>
             </div>
-        </div>
-
-        <div class="slide">
-            <h1 class="animated">Thank You</h1>
-            <p class="animated" style="font-size: 1.5rem; --delay: 200ms;">We are ready to take your questions.</p>
-            <div class="animated" style="margin-top: 2rem; --delay: 400ms;">
-                <p style="color: var(--accent-primary);">Project: Vehicle Valuation</p>
-                <p style="color: var(--text-muted); font-size: 1rem;">Faculty of Computers and Information - Zagazig University</p>
+            <h3>SQL</h3>
+          </div>
+          <div class="skill-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="skill-card-glow"></div>
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16v2H4V4zm0 4h16v2H4V8zm0 4h10v2H4v-2zm0 4h16v2H4v-2z"/></svg>
             </div>
+            <h3>HTML</h3>
+          </div>
+          <div class="skill-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="skill-card-glow"></div>
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16v2H4V4zm0 4h16v2H4V8zm0 4h10v2H4v-2zm0 4h16v2H4v-2z"/></svg>
+            </div>
+            <h3>CSS</h3>
+          </div>
+          <div class="skill-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="skill-card-glow"></div>
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16v2H4V4zm0 4h16v2H4V8zm0 4h10v2H4v-2zm0 4h16v2H4v-2z"/></svg>
+            </div>
+            <h3>JavaScript</h3>
+          </div>
+          <div class="skill-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="skill-card-glow"></div>
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16v2H4V4zm0 4h16v2H4V8zm0 4h10v2H4v-2zm0 4h16v2H4v-2z"/></svg>
+            </div>
+            <h3>C++</h3>
+          </div>
+          <div class="skill-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="skill-card-glow"></div>
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 4h10v2H7v-2zm0 4h6v2H7v-2z"/></svg>
+            </div>
+            <h3>Power BI</h3>
+          </div>
+          <div class="skill-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="skill-card-glow"></div>
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.16-1.11-1.47-1.11-1.47-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.51.337 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.33-.01 2.41-.01 2.74 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+            </div>
+            <h3>GitHub</h3>
+          </div>
         </div>
+      </div>
+    </section>
 
+    <!-- SECTION 7 — PROJECTS -->
+    <section id="projects" class="section projects" aria-label="Projects">
+      <div class="container">
+        <header class="section-header reveal fade-up">
+          <div class="section-title-wrap">
+            <span class="section-line" aria-hidden="true"></span>
+            <h2 class="section-title">Projects</h2>
+            <span class="section-line" aria-hidden="true"></span>
+          </div>
+        </header>
+        <div class="projects-grid">
+          <article class="project-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="project-image">
+              <img src="images/WhatsApp Image 2026-07-07 at 12.25.07 PM.jpeg" alt="Cars Project Model" loading="lazy" decoding="async" width="600" height="375">
+              <div class="project-overlay"></div>
+              <div class="project-number" aria-hidden="true">01</div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Cars Project Model</h3>
+              <p class="project-desc">An end-to-end machine learning solution that predicts used car prices with high accuracy. Built on real-world automotive datasets, the project implements comprehensive data preprocessing, intelligent feature engineering, and rigorous model evaluation. Multiple regression algorithms were trained and compared using Scikit-Learn, with performance visualized through Matplotlib and Seaborn — delivering a production-ready pricing engine saved via Joblib for instant deployment.</p>
+              <div class="project-tags">
+                <span>Python</span>
+                <span>Pandas</span>
+                <span>NumPy</span>
+                <span>Scikit-Learn</span>
+                <span>Matplotlib</span>
+                <span>Seaborn</span>
+                <span>Joblib</span>
+              </div>
+              <a href="https://github.com/mohamed6645y-lgtm/Cars-Project.git" class="btn btn-github magnetic-btn" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.16-1.11-1.47-1.11-1.47-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.51.337 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.33-.01 2.41-.01 2.74 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+                <span>View on GitHub</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card glass tilt-card reveal fade-up" data-tilt>
+            <div class="project-image">
+              <img src="images/Screenshot 2026-07-07 123418.png" alt="Deleel Alsunna" loading="lazy" decoding="async" width="600" height="375">
+              <div class="project-overlay"></div>
+              <div class="project-number" aria-hidden="true">02</div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Deleel Alsunna</h3>
+              <p class="project-desc">A sophisticated Hadith verification platform that empowers users to authenticate any Hadith by cross-referencing trusted Islamic sources in real time. Connected to authoritative API collections including Sahih Al-Bukhari, Sahih Muslim, Abu Dawood, and At-Tirmidhi, the application delivers instant authenticity assessments with an elegant, user-friendly interface — bridging traditional scholarship with modern web technology.</p>
+              <div class="project-tags">
+                <span>Python</span>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>API</span>
+              </div>
+              <a href="#" class="btn btn-github" aria-disabled="true" tabindex="-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.16-1.11-1.47-1.11-1.47-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.51.337 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.33-.01 2.41-.01 2.74 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+                <span>View on GitHub</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8 — FEEDBACK / TESTIMONIALS -->
+    <section id="feedback" class="section testimonials" aria-label="Testimonials">
+      <div class="section-bg-accent section-bg-accent--alt" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section-header reveal fade-up">
+          <div class="section-title-wrap">
+            <span class="section-line" aria-hidden="true"></span>
+            <h2 class="section-title">Testimonials</h2>
+            <span class="section-line" aria-hidden="true"></span>
+          </div>
+        </header>
+        <div class="slider-wrapper reveal fade-up">
+          <div class="slider-controls">
+            <button class="slider-btn slider-btn--prev" id="slider-prev" aria-label="Previous testimonial">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="slider-btn slider-btn--next" id="slider-next" aria-label="Next testimonial">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+          <div class="slider-viewport" id="slider-viewport">
+            <div class="slider-track" id="slider-track" role="region" aria-live="polite" aria-label="Testimonials carousel">
+              <div class="testimonial-card glass">
+                <div class="testimonial-quote" aria-hidden="true">&ldquo;</div>
+                <div class="testimonial-avatar"><img src="" alt="Sarah Mitchell" loading="lazy" decoding="async" width="72" height="72"></div>
+                <h4 class="testimonial-name">Sarah Mitchell</h4>
+                <p class="testimonial-role">Product Manager, TechFlow Inc.</p>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-text">Mohamed transformed our raw sales data into a stunning Power BI dashboard that our entire executive team relies on daily. His ability to translate complex analytics into clear visual stories is exceptional.</p>
+              </div>
+              <div class="testimonial-card glass">
+                <div class="testimonial-quote" aria-hidden="true">&ldquo;</div>
+                <div class="testimonial-avatar"><img src="" alt="Ahmed Hassan" loading="lazy" decoding="async" width="72" height="72"></div>
+                <h4 class="testimonial-name">Ahmed Hassan</h4>
+                <p class="testimonial-role">CEO, Digital Solutions Egypt</p>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-text">Working with Mohamed on our full-stack application was a game-changer. He delivered a polished, scalable product ahead of schedule while maintaining impeccable code quality throughout.</p>
+              </div>
+              <div class="testimonial-card glass">
+                <div class="testimonial-quote" aria-hidden="true">&ldquo;</div>
+                <div class="testimonial-avatar"><img src="" alt="Emily Chen" loading="lazy" decoding="async" width="72" height="72"></div>
+                <h4 class="testimonial-name">Emily Chen</h4>
+                <p class="testimonial-role">Data Science Lead, InsightLab</p>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-text">His machine learning model for car price prediction exceeded our accuracy benchmarks. Mohamed's thorough approach to feature engineering and model evaluation sets him apart from other developers.</p>
+              </div>
+              <div class="testimonial-card glass">
+                <div class="testimonial-quote" aria-hidden="true">&ldquo;</div>
+                <div class="testimonial-avatar"><img src="" alt="Omar El-Sayed" loading="lazy" decoding="async" width="72" height="72"></div>
+                <h4 class="testimonial-name">Omar El-Sayed</h4>
+                <p class="testimonial-role">Freelance Client</p>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-text">Mohamed built the Deleel Alsunna platform with remarkable attention to detail. The API integrations work flawlessly, and the user interface is both beautiful and intuitive. Highly recommended.</p>
+              </div>
+              <div class="testimonial-card glass">
+                <div class="testimonial-quote" aria-hidden="true">&ldquo;</div>
+                <div class="testimonial-avatar"><img src="" alt="Jessica Williams" loading="lazy" decoding="async" width="72" height="72"></div>
+                <h4 class="testimonial-name">Jessica Williams</h4>
+                <p class="testimonial-role">Marketing Director, BrandVision</p>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-text">The analytics reports Mohamed prepared helped us identify a 23% revenue opportunity we had completely overlooked. His data-driven insights directly impacted our quarterly strategy.</p>
+              </div>
+              <div class="testimonial-card glass">
+                <div class="testimonial-quote" aria-hidden="true">&ldquo;</div>
+                <div class="testimonial-avatar"><img src="" alt="Karim Abdelrahman" loading="lazy" decoding="async" width="72" height="72"></div>
+                <h4 class="testimonial-name">Karim Abdelrahman</h4>
+                <p class="testimonial-role">Startup Founder, NexGen Apps</p>
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-text">From database design to front-end polish, Mohamed handled every layer of our MVP with professionalism and creativity. He's the kind of developer every startup dreams of finding.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider-footer">
+            <div class="slider-dots" id="slider-dots" role="tablist" aria-label="Testimonial navigation"></div>
+            <div class="slider-counter" id="slider-counter" aria-hidden="true"><span id="slider-current">01</span> / <span id="slider-total">06</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9 — CONTACT -->
+    <section id="contact" class="section contact" aria-label="Contact">
+      <div class="container">
+        <header class="section-header reveal fade-up">
+          <div class="section-title-wrap">
+            <span class="section-line" aria-hidden="true"></span>
+            <h2 class="section-title">Contact Me</h2>
+            <span class="section-line" aria-hidden="true"></span>
+          </div>
+        </header>
+        <div class="contact-grid">
+          <a href="https://wa.me/201128170467" class="contact-card glass reveal fade-up" target="_blank" rel="noopener noreferrer">
+            <div class="contact-icon whatsapp">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            </div>
+            <h3>WhatsApp</h3>
+            <p>01128170467</p>
+            <span class="contact-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="mailto:mohamed6645y@gmail.com" class="contact-card glass reveal fade-up">
+            <div class="contact-icon email">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h3>Email</h3>
+            <p>mohamed6645y@gmail.com</p>
+            <span class="contact-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="https://www.facebook.com/share/1aGJRixNpq/" class="contact-card glass reveal fade-up" target="_blank" rel="noopener noreferrer">
+            <div class="contact-icon facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <h3>Facebook</h3>
+            <p>Connect on Facebook</p>
+            <span class="contact-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="footer-logo">MM<span class="logo-dot">.</span></a>
+        <p class="footer-tagline">Data Analyst &amp; Full-Stack Developer crafting data-driven digital experiences.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#home">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <a href="https://github.com/mohamed6645y-lgtm/Cars-Project.git" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.16-1.11-1.47-1.11-1.47-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.51.337 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.33-.01 2.41-.01 2.74 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/1aGJRixNpq/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="mailto:mohamed6645y@gmail.com" aria-label="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
     </div>
-
-    <div class="controls">
-        <button class="btn" onclick="prevSlide()">Previous</button>
-        <button class="btn" onclick="nextSlide()">Next</button>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Mohamed Mahmoud. Crafted with precision.</p>
+      </div>
     </div>
+  </footer>
 
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const progressBar = document.getElementById('progress');
-        const counter = document.getElementById('counter');
-        const charts = {};
-        const themeToggle = document.getElementById('theme-toggle');
+  <!-- Back To Top Button -->
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
 
-        // --- Theme Management ---
-        function setAndStoreTheme(isDark) {
-            const theme = isDark ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('presentationTheme', theme);
-            themeToggle.checked = !isDark; // Toggle is for light mode
-        }
-
-        // Event listener for the theme toggle
-        themeToggle.addEventListener('change', () => {
-            setAndStoreTheme(!themeToggle.checked);
-        });
-
-        // Function to initialize the theme on page load
-        function initializeTheme() {
-            const savedTheme = localStorage.getItem('presentationTheme');
-            if (savedTheme) {
-                setAndStoreTheme(savedTheme === 'dark');
-            } else {
-                // If no theme is saved, check user's OS preference
-                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                setAndStoreTheme(prefersDark);
-            }
-        }
-
-        // --- Chart Creation ---
-        // This function creates a chart only once for a given slide to improve performance.
-        function createOrUpdateChart(slideIndex) {
-            if (charts[slideIndex]) {
-                return; 
-            }
-
-            // Dynamically get colors from CSS variables to support theme switching
-            const style = getComputedStyle(document.documentElement);
-            const primaryAccent = style.getPropertyValue('--accent-primary').trim();
-            const secondaryAccent = style.getPropertyValue('--accent-secondary').trim();
-            const textColor = style.getPropertyValue('--text-main').trim();
-            const mutedTextColor = style.getPropertyValue('--text-muted').trim();
-            const surfaceColor = style.getPropertyValue('--surface').trim();
-            const gridColor = style.getPropertyValue('--card-border-color').trim();
-
-            let ctx;
-            switch(slideIndex) {
-                case 12: // Model Evaluation
-                    ctx = document.getElementById('accuracyChart').getContext('2d');
-                    charts[slideIndex] = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: ['Accuracy', 'Error'],
-                            datasets: [{
-                                data: [91.7, 8.3],
-                                backgroundColor: [primaryAccent, surfaceColor],
-                                borderColor: [primaryAccent, gridColor],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            cutout: '70%',
-                            plugins: {
-                                legend: { display: false },
-                                title: {
-                                    display: true,
-                                    text: 'Model Accuracy',
-                                    color: textColor,
-                                    font: { size: 16, family: 'Rajdhani', weight: '600' }
-                                }
-                            }
-                        }
-                    });
-                    break;
-                case 15: // Final Impact
-                    ctx = document.getElementById('impactChart').getContext('2d');
-                    charts[slideIndex] = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Manual Research', 'Our Platform'],
-                            datasets: [{
-                                label: 'Time to Value a Car (Hours)',
-                                data: [4, 0.0005], // 4 hours vs < 2 seconds
-                                backgroundColor: [secondaryAccent, primaryAccent],
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            indexAxis: 'y',
-                            scales: {
-                                x: {
-                                    type: 'logarithmic',
-                                    title: { display: true, text: 'Hours (Log Scale)', color: mutedTextColor},
-                                    ticks: { color: mutedTextColor },
-                                    grid: { color: gridColor }
-                                },
-                                y: {
-                                    ticks: { color: mutedTextColor },
-                                    grid: { display: false }
-                                }
-                            },
-                            plugins: {
-                                legend: { display: false },
-                                title: {
-                                    display: true,
-                                    text: 'Time Efficiency Gain',
-                                    color: textColor,
-                                    font: { size: 16, family: 'Rajdhani', weight: '600' }
-                                }
-                            }
-                        }
-                    });
-                    break;
-            }
-        }
-
-        // --- Slide Navigation & UI Updates ---
-        function updateUI() {
-            slides.forEach((slide, index) => {
-                if (index === currentSlide) {
-                    slide.classList.add('active');
-                    // Create chart for the active slide if it has one
-                    createOrUpdateChart(index);
-                } else {
-                    slide.classList.remove('active');
-                }
-            });
-            
-            const progress = ((currentSlide + 1) / slides.length) * 100;
-            progressBar.style.width = progress + '%';
-            counter.innerText = (currentSlide + 1) + ' / ' + slides.length;
-        }
-
-        function nextSlide() {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateUI();
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateUI();
-            }
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
-                e.preventDefault(); // Prevent space bar from scrolling
-                nextSlide();
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                e.preventDefault();
-                prevSlide();
-            }
-        });
-
-        // Initialize UI
-        initializeTheme();
-        updateUI();
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
